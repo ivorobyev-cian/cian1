@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Быстрый поиск жилья · Циан</title>
+  <link rel="stylesheet" href="brand/brand.css">
+  <script src="plan.js"></script>
+  <style>
+    * { box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #052b6e; }
+    body { font-family: var(--font); }
+    #app { position: fixed; inset: 0; overflow: hidden; background: linear-gradient(160deg, #052b6e 0%, #0468ff 52%, #dceaff 100%); }
+    .orb { position: absolute; border-radius: 50%; filter: blur(2px); opacity: .8; }
+    #orb-a { width: 820px; height: 820px; left: -380px; top: -140px; background: #ff7a26; }
+    #orb-b { width: 980px; height: 980px; right: -590px; bottom: -370px; background: #dceaff; }
+    #grid { position: absolute; inset: -120px; opacity: .2; background-image: linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px); background-size: 64px 64px; transform-origin: center; }
+    .band { position: absolute; width: 1600px; height: 190px; left: -300px; border-radius: 150px; background: #fff; opacity: 0; transform: rotate(-28deg); }
+    #band-a { top: 360px; } #band-b { top: 680px; background: #ff7a26; } #band-c { top: 1000px; background: #dceaff; }
+    #word { position: absolute; z-index: 1; left: 70px; top: 124px; color: #fff; font-size: 98px; font-weight: 750; letter-spacing: -.075em; line-height: .9; text-shadow: 0 8px 26px rgba(5,43,110,.2); opacity: 0; white-space: nowrap; }
+    #tag { position: absolute; z-index: 1; left: 74px; top: 238px; padding: 15px 20px; border-radius: 22px; color: #fff; background: rgba(21,34,66,.74); font-size: 27px; font-weight: 650; opacity: 0; }
+    .phone { position: absolute; z-index: 2; left: 50%; top: 50%; width: 860px; height: 1864px; overflow: hidden; border-radius: 38px; background: #fff; box-shadow: 0 34px 90px rgba(5,35,91,.36); transform-origin: center; will-change: opacity, transform; }
+    .phone img { display: block; width: 100%; height: 100%; }
+    #focus { position: absolute; z-index: 3; width: 802px; height: 130px; left: calc(50% - 401px); top: 746px; border: 5px solid #ff7a26; border-radius: 28px; opacity: 0; pointer-events: none; box-shadow: 0 0 0 11px rgba(255,122,38,.22); }
+    #touch { position: absolute; z-index: 4; width: 82px; height: 82px; border: 4px solid #0468ff; border-radius: 50%; background: rgba(255,255,255,.9); box-shadow: 0 7px 20px rgba(5,35,91,.26); opacity: 0; pointer-events: none; transform-origin: center; }
+    #touch::after { content: ''; position: absolute; inset: 23px; border-radius: 50%; background: #0468ff; }
+    #glint { position: absolute; z-index: 5; inset: 0; background: linear-gradient(120deg, transparent 38%, rgba(255,255,255,.72) 50%, transparent 62%); transform: translateX(-130%); opacity: 0; pointer-events: none; }
+  </style>
+</head>
+<body>
+  <main id="app" aria-label="Промо мобильной главной">
+    <div class="orb" id="orb-a"></div><div class="orb" id="orb-b"></div><div id="grid"></div>
+    <div class="band" id="band-a"></div><div class="band" id="band-b"></div><div class="band" id="band-c"></div>
+    <div id="word">Ясенево</div><div id="tag">2 комнаты · до 18 млн ₽</div>
+    <div class="phone" id="home"><img src="screens/home.png" alt="Главная прототипа"></div>
+    <div class="phone" id="search"><img src="screens/search.png" alt="Форма поиска прототипа"></div>
+    <div class="phone" id="saved"><img src="screens/saved-search.png" alt="Сохранённый поиск прототипа"></div>
+    <div id="focus"></div><div id="touch"></div><div id="glint"></div>
+  </main>
+  <script>
+    'use strict';
+    const $ = (id) => document.getElementById(id);
+    const clamp = (x) => Math.max(0, Math.min(1, x));
+    const ease = (x) => 1 - Math.pow(1 - clamp(x), 3);
+    const range = (t, a, b) => ease((t - a) / (b - a));
+    const pulse = (t, a, b) => Math.sin(Math.PI * clamp((t - a) / (b - a)));
+    const phone = (el, opacity, x, y, scale, angle) => {
+      el.style.opacity = opacity.toFixed(4);
+      el.style.transform = `translate(${x - 970}px, ${y - 1892}px) rotate(${angle.toFixed(2)}deg) scale(${scale.toFixed(4)})`;
+    };
+    const touch = (t, a, b, x, y) => {
+      const p = range(t, a, b), el = $('touch');
+      el.style.left = `${x - 41}px`; el.style.top = `${y - 41}px`;
+      el.style.opacity = p > 0 && p < 1 ? '1' : '0';
+      el.style.transform = `scale(${(0.7 + .3 * ease(Math.min(1, p * 3))).toFixed(3)})`;
+    };
+    window.DURATION = window.PLAN.duration;
+    window.FPS = window.PLAN.fps;
+    window.render = (t) => {
+      t = Math.max(0, Math.min(window.DURATION, t));
+      const intro = range(t, 0, .58), outHome = range(t, 2.05, 2.62);
+      phone($('home'), intro * (1 - outHome), 490 + 50 * intro, 1010 - 50 * intro, .90 + .10 * intro, -4 + 4 * intro);
+      const inSearch = range(t, 2.18, 2.7), outSearch = range(t, 6.85, 7.42);
+      phone($('search'), inSearch * (1 - outSearch), 608 - 68 * inSearch, 1060 - 70 * inSearch, .88 + .14 * inSearch, 4 - 4 * inSearch);
+      const inSaved = range(t, 6.96, 7.52), zoomSaved = range(t, 8.0, 10.5), settleSaved = range(t, 11.9, 12.94);
+      phone($('saved'), inSaved, 540, 1002 - 42 * zoomSaved + 42 * settleSaved, .93 + .14 * zoomSaved - .07 * settleSaved, 0);
+
+      const bg = $('grid');
+      bg.style.transform = `translate(${(-44 * clamp(t / 12.94)).toFixed(1)}px, ${(36 * clamp(t / 12.94)).toFixed(1)}px) rotate(${(-4 * clamp(t / 12.94)).toFixed(2)}deg)`;
+      $('orb-a').style.transform = `translate(${(-80 + 150 * clamp(t / 12.94)).toFixed(1)}px, ${(34 * clamp(t / 12.94)).toFixed(1)}px) scale(${(1 + .12 * clamp(t / 12.94)).toFixed(3)})`;
+      $('orb-b').style.transform = `translate(${(100 - 130 * clamp(t / 12.94)).toFixed(1)}px, ${(-58 * clamp(t / 12.94)).toFixed(1)}px)`;
+      const swipe = pulse(t, 2.02, 2.82);
+      [['band-a', 0], ['band-b', .07], ['band-c', .14]].forEach(([id, delay]) => {
+        const p = pulse(t - delay, 2.02, 2.82); const el = $(id);
+        el.style.opacity = (p * .96).toFixed(3);
+        el.style.transform = `translateX(${(-1500 + 1820 * clamp((t - 2.02 - delay) / .8)).toFixed(1)}px) rotate(-28deg)`;
+      });
+      const wordIn = range(t, 3.0, 3.45), wordOut = range(t, 6.3, 6.78);
+      $('word').style.opacity = (wordIn * (1 - wordOut)).toFixed(3);
+      $('word').style.transform = `translateY(${(30 - 30 * wordIn - 14 * wordOut).toFixed(1)}px)`;
+      $('tag').style.opacity = (range(t, 3.26, 3.72) * (1 - wordOut)).toFixed(3);
+      $('tag').style.transform = `translateY(${(18 - 18 * range(t, 3.26, 3.72)).toFixed(1)}px)`;
+      const focusOpacity = .95 * range(t, 8.55, 8.95) * (1 - range(t, 11.35, 11.85));
+      $('focus').style.opacity = focusOpacity.toFixed(3);
+      $('focus').style.transform = `scale(${(0.97 + .03 * range(t, 8.55, 8.95)).toFixed(3)})`;
+      const glint = pulse(t, 6.86, 7.64);
+      $('glint').style.opacity = (glint * .7).toFixed(3);
+      $('glint').style.transform = `translateX(${(-130 + 260 * clamp((t - 6.86) / .78)).toFixed(1)}%)`;
+      $('touch').style.opacity = '0';
+      if (t >= 1.47 && t < 2.05) touch(t, 1.47, 2.05, 540, 416);
+      if (t >= 3.76 && t < 4.32) touch(t, 3.76, 4.32, 490, 1130);
+      if (t >= 4.56 && t < 5.12) touch(t, 4.56, 5.12, 585, 1300);
+      if (t >= 5.34 && t < 5.92) touch(t, 5.34, 5.92, 542, 1605);
+      if (t >= 6.08 && t < 6.68) touch(t, 6.08, 6.68, 540, 1790);
+    };
+    Promise.all([...document.images].map((image) => image.complete ? Promise.resolve() : new Promise((resolve) => { image.onload = resolve; image.onerror = resolve; })))
+      .then(() => document.fonts.ready).then(() => { window.render(0); window.READY = true; });
+  </script>
+</body>
+</html>

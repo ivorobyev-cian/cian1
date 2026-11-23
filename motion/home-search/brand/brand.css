@@ -1,0 +1,31 @@
+/* Профиль собран из variables в styles.css мобильного прототипа. */
+@font-face {
+  font-family: 'Cian Motion';
+  src: url('fonts/Manrope-Variable.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: block;
+}
+
+:root {
+  --font: 'Cian Motion', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+  --w-regular: 400;
+  --w-medium: 600;
+  --w-bold: 750;
+  --accent: #0468ff;
+  --accent-ink: #ffffff;
+  --ink: #152242;
+  --ink2: #6e798d;
+  --ink3: #8a94a6;
+  --line: #e8ecf2;
+  --line2: #dce2ec;
+  --soft: #f5f7fa;
+  --dark: #152242;
+  --surface: #ffffff;
+  --bg: #f0f2f6;
+  --dim: 16,30,61;
+  --sub-bg: rgba(21,34,66,.86);
+  --cursor: #152242;
+  --r-app: 0px;
+  --ring-stops: #0468ff, #0054d6, #ff7a26, #0468ff;
+}
