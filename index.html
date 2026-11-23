@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#ffffff">
+  <title>Главная · Циан</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <svg class="icon-library" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"><defs>
+    <symbol id="i-search" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M10.5 2a8.5 8.5 0 1 0 5.1 15.3l4.5 4.5a1.3 1.3 0 0 0 1.8-1.8l-4.6-4.5A8.5 8.5 0 0 0 10.5 2Zm0 2.6a5.9 5.9 0 1 0 0 11.8 5.9 5.9 0 0 0 0-11.8Z"/></symbol>
+    <symbol id="i-home" viewBox="0 0 24 24"><path d="m2.2 10.1 8.5-7a2 2 0 0 1 2.6 0l8.5 7a1.2 1.2 0 0 1-.8 2.1h-1V20a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-7.8H3a1.2 1.2 0 0 1-.8-2.1Z"/><rect x="10" y="13" width="4" height="8" rx=".5" fill="var(--icon-accent)"/></symbol>
+    <symbol id="i-key" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M8 2a6 6 0 1 0 3.5 10.9L20 21.4h2v-4l-2-2-2 1-1-1 1-2-4.9-4.9A6 6 0 0 0 8 2ZM6.5 5A1.5 1.5 0 1 0 6.5 8a1.5 1.5 0 0 0 0-3Z"/><circle cx="6.5" cy="6.5" r="1.5" fill="var(--icon-accent)"/></symbol>
+    <symbol id="i-building" viewBox="0 0 24 24"><path d="M10 2h10a1 1 0 0 1 1 1v18H9V3a1 1 0 0 1 1-1ZM3 8h4v13H2V9a1 1 0 0 1 1-1Z"/><path fill="var(--icon-accent)" d="M12 5h2v3h-2Zm4 0h2v3h-2Zm-4 5h2v3h-2Zm4 0h2v3h-2Zm-4 5h2v3h-2Zm4 0h2v6h-2Z"/></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><path fill="var(--icon-accent)" d="M11 1h2v4h-2Zm0 18h2v4h-2ZM1 11h4v2H1Zm18 0h4v2h-4ZM3.5 4.9l1.4-1.4 2.8 2.8-1.4 1.4Zm12.8 12.8 1.4-1.4 2.8 2.8-1.4 1.4ZM3.5 19.1l2.8-2.8 1.4 1.4-2.8 2.8ZM16.3 6.3l2.8-2.8 1.4 1.4-2.8 2.8Z"/></symbol>
+    <symbol id="i-briefcase" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M8 3a2 2 0 0 0-2 2v2H4a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2V5a2 2 0 0 0-2-2Zm0 4V5h8v2Z"/><rect x="10" y="10" width="4" height="5" rx="1" fill="var(--icon-accent)"/></symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24"><path d="M20.8 4.8a5.5 5.5 0 0 0-7.8 0l-1 1-1-1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.4a5.5 5.5 0 0 0 0-7.8Z"/></symbol>
+    <symbol id="i-message" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 2a9.5 9.5 0 0 0-8.5 13.7L2 22l6.2-1.5A9.5 9.5 0 1 0 12 2ZM7 9h10v2H7Zm0 4h7v2H7Z"/></symbol>
+    <symbol id="i-profile" viewBox="0 0 24 24"><circle cx="12" cy="6.5" r="4.5"/><path d="M3 21v-1a9 7 0 0 1 18 0v1Z"/></symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24"><path d="m8 4 8 8-8 8-2-2 6-6-6-6Z"/></symbol>
+    <symbol id="i-close" viewBox="0 0 24 24"><path d="m6.1 4 5.9 5.9L17.9 4 20 6.1 14.1 12l5.9 5.9-2.1 2.1-5.9-5.9L6.1 20 4 17.9 9.9 12 4 6.1Z"/></symbol>
+    <symbol id="i-sliders" viewBox="0 0 24 24"><path d="M2 6h20v2H2Zm0 10h20v2H2Z"/><rect x="6" y="3" width="4" height="8" rx="2"/><rect x="14" y="13" width="4" height="8" rx="2"/></symbol>
+    <symbol id="i-bookmark" viewBox="0 0 24 24"><path d="M6 2h12a1 1 0 0 1 1 1v19l-7-4-7 4V3a1 1 0 0 1 1-1Z"/></symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24"><path fill-rule="evenodd" d="M12 1a8 8 0 0 0-8 8c0 6 8 14 8 14s8-8 8-14a8 8 0 0 0-8-8Zm0 5a3 3 0 1 0 0 6 3 3 0 0 0 0-6Z"/></symbol>
+  </defs></svg>
+
+  <main class="app" id="app" data-user="new">
+    <div class="home-content">
+      <button class="advert" type="button" data-action="advert" aria-label="Реклама: ЖК Речной парк, квартиры от 12,4 млн рублей. Подробнее о проекте">
+        <span class="advert-copy"><span class="advert-label">Реклама · застройщик</span><strong>ЖК «Речной парк»</strong><span class="advert-price">Квартиры от 12,4 млн ₽ <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></span>
+      </button>
+      <section class="search-block" aria-label="Поиск недвижимости">
+        <button class="search-trigger" type="button" data-action="search"><svg class="icon" aria-hidden="true"><use href="#i-search"/></svg><span id="search-summary">Где хотите жить?</span><svg class="icon search-sliders" aria-hidden="true"><use href="#i-sliders"/></svg></button>
+        <div class="verticals" aria-label="Направления поиска">
+          <button type="button" data-vertical="buy"><span class="vertical-icon"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg></span><span>Купить</span></button>
+          <button type="button" data-vertical="rent"><span class="vertical-icon"><svg class="icon" aria-hidden="true"><use href="#i-key"/></svg></span><span>Снять</span></button>
+          <button type="button" data-vertical="newbuild"><span class="vertical-icon"><svg class="icon" aria-hidden="true"><use href="#i-building"/></svg></span><span>Новостройки</span></button>
+          <button type="button" data-vertical="daily"><span class="vertical-icon"><svg class="icon" aria-hidden="true"><use href="#i-sun"/></svg></span><span>Посуточно</span></button>
+          <button type="button" data-vertical="commercial"><span class="vertical-icon"><svg class="icon" aria-hidden="true"><use href="#i-briefcase"/></svg></span><span>Коммерческая</span></button>
+        </div>
+      </section>
+      <section class="saved-section" id="saved-section" aria-label="Продолжить поиск" hidden>
+        <button type="button" class="saved-search" id="saved-search"><span class="saved-symbol"><svg class="icon" aria-hidden="true"><use href="#i-bookmark"/></svg></span><span class="saved-copy"><span class="saved-eyebrow">Продолжить поиск <span class="new-count">14 новых</span></span><strong id="saved-summary">2-комн. · Ясенево · до 18 млн ₽</strong></span><svg class="icon saved-arrow" aria-hidden="true"><use href="#i-arrow"/></svg></button>
+      </section>
+      <section class="recommendations" aria-labelledby="recommendations-title">
+        <div class="section-heading"><div><p class="eyebrow" id="recommendations-caption">Покупка недвижимости</p><h1 id="recommendations-title">Предложения в Москве</h1></div><span class="section-count" id="results-count">3</span></div>
+        <div class="listings" id="listings"></div>
+      </section>
+      <section class="collection" aria-label="Тематическая подборка">
+        <button type="button" data-action="collection"><img src="assets/house.jpg" alt="Дом с террасой в окружении зелени" width="400" height="260" loading="lazy"><span class="collection-shade"></span><span class="collection-copy"><span>Тематическая подборка</span><strong>Дома с террасой<br>рядом с Москвой</strong><span class="collection-link">Смотреть подборку <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></span></span></button>
+      </section>
+      <section class="more-section" aria-labelledby="more-title"><div class="section-heading"><h2 id="more-title">Ещё стоит посмотреть</h2></div><div class="listings" id="more-listings"></div></section>
+      <p class="feed-note">Вы смотрите учебный прототип.<br>Объявления и цены — примеры.</p>
+    </div>
+    <nav class="bottom-nav" aria-label="Основная навигация">
+      <button class="nav-item active" type="button" data-nav="home" aria-current="page"><svg class="icon" aria-hidden="true"><use href="#i-home"/></svg><span>Главная</span></button>
+      <button class="nav-item" type="button" data-nav="favorites"><span class="nav-icon-wrap"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg><span id="favorites-count" class="nav-badge" hidden>0</span></span><span>Избранное</span></button>
+      <button class="nav-item" type="button" data-nav="messages"><svg class="icon" aria-hidden="true"><use href="#i-message"/></svg><span>Сообщения</span></button>
+      <button class="nav-item" type="button" data-nav="profile"><svg class="icon" aria-hidden="true"><use href="#i-profile"/></svg><span>Профиль</span></button>
+    </nav>
+  </main>
+
+  <dialog id="search-dialog" class="sheet" aria-labelledby="search-title">
+    <div class="sheet-handle" aria-hidden="true"></div>
+    <div class="sheet-heading"><div><p class="eyebrow">Москва</p><h2 id="search-title">Купить квартиру</h2></div><button class="icon-button close-button" type="button" data-close aria-label="Закрыть поиск"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div>
+    <form id="search-form">
+      <label class="field">Направление<select id="vertical-select" name="vertical"><option value="buy">Купить</option><option value="rent">Снять</option><option value="newbuild">Новостройки</option><option value="daily">Посуточно</option><option value="commercial">Коммерческая</option></select></label>
+      <label class="field location-field">Район или метро<span class="input-with-icon"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg><input id="location-input" name="location" maxlength="60" placeholder="Например, Ясенево" autocomplete="off"></span></label>
+      <fieldset class="room-field" id="room-fields"><legend>Комнат</legend><div class="room-options"><button type="button" data-room="studio" aria-pressed="false">Студия</button><button type="button" data-room="1" aria-pressed="false">1</button><button type="button" data-room="2" aria-pressed="false">2</button><button type="button" data-room="3" aria-pressed="false">3</button><button type="button" data-room="4+" aria-pressed="false">4+</button></div></fieldset>
+      <div id="daily-fields" class="field-grid" hidden><label class="field">Заезд<input id="checkin-input" type="date" name="checkin"></label><label class="field">Выезд<input id="checkout-input" type="date" name="checkout"></label><label class="field full-width">Гостей<select id="guests-input" name="guests"><option value="1">1 гость</option><option value="2" selected>2 гостя</option><option value="3">3 гостя</option><option value="4">4 гостя</option><option value="5">5 и больше</option></select></label></div>
+      <div id="commercial-fields" class="field-grid" hidden><label class="field full-width">Тип помещения<select id="property-input" name="property"><option value="office">Офис</option><option value="retail">Торговая площадь</option><option value="warehouse">Склад</option><option value="free">Свободное назначение</option></select></label><label class="field full-width">Площадь от, м²<input id="area-input" name="area" type="number" min="1" max="100000" placeholder="Любая"></label></div>
+      <label class="field">Бюджет до, ₽<input id="budget-input" name="budget" type="number" min="1" max="100000000000" placeholder="Без ограничений"><span class="field-hint" id="budget-hint">Стоимость объекта</span></label>
+      <p id="search-error" class="form-error" role="alert" hidden></p>
+      <label class="save-query"><input id="save-input" type="checkbox" name="save"><span><strong>Сохранить поиск</strong><small>Чтобы продолжить с главной</small></span><svg class="icon" aria-hidden="true"><use href="#i-bookmark"/></svg></label>
+      <button class="primary-button" type="submit" id="apply-search">Показать предложения</button>
+    </form>
+  </dialog>
+  <dialog id="info-dialog" class="sheet info-sheet" aria-labelledby="info-title"><div class="sheet-handle" aria-hidden="true"></div><div class="sheet-heading"><h2 id="info-title"></h2><button class="icon-button close-button" type="button" data-close aria-label="Закрыть"><svg class="icon" aria-hidden="true"><use href="#i-close"/></svg></button></div><div id="info-content"></div></dialog>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
