@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f5f7fa">
+  <title>Карта сценария · Циан</title>
+  <link rel="stylesheet" href="map.css">
+</head>
+<body>
+  <main class="page">
+    <a class="back" href="/">← К мобильному прототипу</a>
+    <section class="intro">
+      <div><p class="kicker">Отдельная страница · /map</p><h1>Карта сценария<br>поиска жилья</h1><p>Экраны, переходы и события Яндекс Метрики собраны в одной схеме. Подписи на карточках — просмотры экранов, на стрелках — действия.</p></div>
+      <aside><span>Яндекс Метрика</span><strong>Счётчик <code>00000000</code></strong><small>Заглушка: настоящий счётчик не подключён</small></aside>
+    </section>
+    <section class="flow" aria-label="Схема экранов">
+      <article class="screen home"><b>Главная</b><div><i>⌂</i><strong>Подбор жилья</strong><small>Открыть поиск</small></div><code>home_view</code><em>step=home</em></article>
+      <div class="arrow"><span>→</span><code>search_start</code><small>step=home_to_search</small><b>Открыть поиск</b></div>
+      <article class="screen search"><b>Поиск</b><div><i>⌕</i><strong>Ясенево</strong><small>2 комнаты · до 18 млн</small></div><code>search_view</code><em>step=search</em></article>
+      <div class="arrow"><span>→</span><code>search_submit</code><small>step=search_to_results</small><b>Применить фильтры</b></div>
+      <article class="screen results"><b>Выдача</b><div><i>▤</i><strong>3 объявления</strong><small>17,8 млн ₽</small></div><code>results_view</code><em>step=results</em></article>
+      <div class="arrow"><span>→</span><code>listing_open</code><small>step=results_to_listing</small><b>Открыть объявление</b></div>
+      <article class="screen listing"><b>Карточка</b><div><i>▧</i><strong>2-комн. · 54 м²</strong><small>Связаться</small></div><code>listing_view</code><em>step=listing</em></article>
+      <div class="arrow"><span>→</span><code>contact_start</code><small>step=listing_to_contact</small><b>Связаться</b></div>
+      <article class="screen contact"><b>Контакт</b><div><i>✓</i><strong>Заявка</strong><small>Отправить</small></div><code>contact_submit</code><em>step=contact</em></article>
+    </section>
+    <section class="targets"><h2>Цели в коде</h2><p>В прототипе цели вызываются через <code>trackGoal(goal, step, params)</code>; он оборачивает заглушку <code>ymStub</code>. Для реального счётчика замените её на <code>ym(00000000, 'reachGoal', goal, params)</code>.</p><div class="target head"><span>Цель</span><span>Триггер</span><span>Параметр шага</span></div><div class="target"><code>home_view</code><span>Первый показ главной</span><code>step=home</code></div><div class="target"><code>search_start / search_view</code><span>Открытие и показ поиска</span><code>step=home_to_search / search</code></div><div class="target"><code>search_submit / results_view</code><span>Применение фильтров и показ выдачи</span><code>step=search_to_results / results</code></div><div class="target"><code>listing_open / listing_view</code><span>Открытие и показ объявления</span><code>step=results_to_listing / listing</code></div><div class="target"><code>contact_start</code><span>Старт контакта</span><code>step=listing_to_contact</code></div><div class="target"><code>contact_submit</code><span>Отправка заявки</span><code>step=contact</code></div></section>
+    <section class="ab"><div><p class="kicker">План эксперимента</p><h2>A/B-тест: сократить путь до выдачи</h2><p><b>Гипотеза.</b> Пресеты готовых поисков на главной помогут пользователям быстрее перейти к релевантной выдаче и чаще открыть объявление.</p><p><b>Вариант A.</b> Текущая главная: пользователь открывает форму и вручную задаёт параметры.</p><p><b>Вариант B.</b> На главной появляются пресеты «1-комн. до 15 млн», «Семейная 2-комн.» и «У метро». Каждый сразу открывает выдачу с предзаполненными фильтрами.</p></div><div class="metrics"><article><small>Основная метрика</small><strong>Конверсия в <code>listing_open</code></strong><span>на уникального посетителя главной</span></article><article><small>Ограничивающая метрика</small><strong>Доля быстрых возвратов из выдачи</strong><span>не должна вырасти более чем на 2 п.п.</span></article><article><small>Выборка и срок</small><strong>≈ 20 000 пользователей</strong><span>по 10 000 на вариант; минимум 14 дней и полный недельный цикл</span></article></div></section>
+  </main>
+</body>
+</html>
