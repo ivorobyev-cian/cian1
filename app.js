@@ -2,6 +2,14 @@
 
 const $ = (selector) => document.querySelector(selector);
 const icon = (name) => `<svg class="icon" aria-hidden="true"><use href="#i-${name}"/></svg>`;
+// Заглушка: перед релизом замените вызов на ym(REAL_COUNTER_ID, 'reachGoal', goal, params).
+const METRIKA_COUNTER_ID = '00000000';
+function ymStub(goal, params) {
+  console.info('[Metrika stub]', { counter: METRIKA_COUNTER_ID, goal, ...params });
+}
+function trackGoal(goal, step, extra = {}) {
+  ymStub(goal, { step, ...extra });
+}
 const storageKey = 'cian-home-prototype-v1';
 const modes = {
   buy: { title: 'Купить квартиру', label: 'Купить', hint: 'Стоимость объекта' },
@@ -164,6 +172,7 @@ function openSearch(trigger, query) {
   document.querySelectorAll('[data-room]').forEach((button) => button.setAttribute('aria-pressed', String(draftRooms.includes(button.dataset.room))));
   updateSearchFields();
   showDialog($('#search-dialog'), trigger);
+  trackGoal('search_view', 'search');
   $('#search-dialog .close-button').focus({ preventScroll: true });
 }
 function showInfo(title, content, trigger) {
@@ -198,11 +207,21 @@ document.addEventListener('click', (event) => {
   } else if (button.hasAttribute('data-close')) {
     button.closest('dialog').close();
   } else if (button.dataset.listing) {
-    outsideScope('Карточка объявления', button);
+    trackGoal('listing_open', 'results_to_listing', { listing_id: button.dataset.listing });
+    trackGoal('listing_view', 'listing', { listing_id: button.dataset.listing });
+    showInfo('Карточка объявления', '<p class="info-text">Экран карточки обозначен на карте сценария. Здесь можно проверить целевое действие.</p><button class="primary-button" type="button" data-action="contact">Связаться с продавцом</button>', button);
   } else if (button.id === 'saved-search') {
     openSearch(button, savedQuery || sampleQuery);
   } else if (button.dataset.action === 'search') {
+    trackGoal('search_start', 'home_to_search');
     openSearch(button);
+  } else if (button.dataset.action === 'contact') {
+    trackGoal('contact_start', 'listing_to_contact');
+    showInfo('Контакт с продавцом', '<p class="info-text">Это учебный прототип: данные никуда не отправляются.</p><button class="primary-button" type="button" data-action="contact-submit">Отправить заявку</button>', button);
+  } else if (button.dataset.action === 'contact-submit') {
+    trackGoal('contact_submit', 'contact');
+    button.closest('dialog').close();
+    notify('Заявка отправлена · тестовое состояние');
   } else if (button.dataset.action === 'advert') {
     showInfo('ЖК «Речной парк»', '<img class="project-image" src="assets/building.jpg" alt="Современные жилые башни"><p class="eyebrow">Реклама · пример проекта</p><p class="project-price">от 12,4 млн ₽</p><p class="info-text">Квартиры в Москве. Архитектура, благоустроенный двор и прогулочные пространства.</p><div class="project-facts"><span>От застройщика</span><span>Квартиры с отделкой</span></div><button class="primary-button" type="button" data-close>Вернуться на главную</button>', button);
   } else if (button.dataset.action === 'collection') {
@@ -229,6 +248,8 @@ $('#search-form').addEventListener('submit', (event) => {
     return;
   }
   currentQuery = { vertical, location: form.get('location').trim(), rooms: ['daily','commercial'].includes(vertical) ? [] : [...draftRooms], budget: form.get('budget'), checkin: form.get('checkin') || '', checkout: form.get('checkout') || '', guests: form.get('guests') || '2', property: form.get('property') || 'office', area: form.get('area') || '' };
+  trackGoal('search_submit', 'search_to_results', { vertical });
+  trackGoal('results_view', 'results', { vertical });
   const shouldSave = form.get('save') === 'on';
   if (shouldSave) savedQuery = structuredClone(currentQuery);
   $('#search-dialog').close();
@@ -252,3 +273,4 @@ const dateString = (date) => `${date.getFullYear()}-${String(date.getMonth()+1).
 $('#checkin-input').min = dateString(today);
 $('#checkout-input').min = dateString(new Date(today.getFullYear(), today.getMonth(), today.getDate()+1));
 render();
+trackGoal('home_view', 'home', { source: 'page_load' });
